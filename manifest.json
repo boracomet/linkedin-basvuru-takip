@@ -1,0 +1,79 @@
+{
+  "manifest_version": 3,
+  "name": "Başvuru istatistik",
+  "version": "1.4.3",
+  "description": "LinkedIn Başvuruldu listenizden başvuru istatistiklerini toplar. Veri bilgisayarınızda kalır.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Başvuru istatistik",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": ["storage", "tabs", "scripting"],
+  "host_permissions": ["https://www.linkedin.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "fonts/inter-tight-latin-400.woff2",
+        "fonts/inter-tight-latin-500.woff2",
+        "fonts/inter-tight-latin-600.woff2",
+        "fonts/inter-tight-latin-700.woff2",
+        "fonts/inter-tight-latin-ext-400.woff2",
+        "fonts/inter-tight-latin-ext-500.woff2",
+        "fonts/inter-tight-latin-ext-600.woff2",
+        "fonts/inter-tight-latin-ext-700.woff2"
+      ],
+      "matches": ["https://www.linkedin.com/*"]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.linkedin.com/jobs-tracker*",
+        "https://www.linkedin.com/jobs/tracker*",
+        "https://www.linkedin.com/*/jobs-tracker*"
+      ],
+      "js": ["url-allow.js", "api-hook.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://www.linkedin.com/jobs-tracker*",
+        "https://www.linkedin.com/jobs/tracker*",
+        "https://www.linkedin.com/*/jobs-tracker*"
+      ],
+      "js": [
+        "url-allow.js",
+        "status.js",
+        "tracker-parse.js",
+        "tracker-paginate.js",
+        "tracker-hydrate.js",
+        "tracker-rsc.js",
+        "tracker-api.js",
+        "tracker-api-runner.js",
+        "scrape-panel-ui.js",
+        "scrape.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.linkedin.com/*"],
+      "js": ["url-allow.js", "status.js", "badges-core.js", "badges.js", "float-badge.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

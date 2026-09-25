@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>Başvuru İstatistikleri</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="results.css" />
+</head>
+<body>
+<div id="boot-empty" class="empty-boot">
+  <p class="empty-title">Henüz kayıtlı tarama yok</p>
+  <p>Eklenti simgesine tıklayıp «Başvuruları topla» düğmesine bas.</p>
+</div>
+<div class="wrap panel-hidden" id="app">
+  <header class="hero">
+    <div class="hero-grid">
+      <div>
+        <p class="kicker">LinkedIn başvuru kaydı <span class="dot" aria-hidden="true"></span> <span id="kicker-range">—</span> <span class="dot" aria-hidden="true"></span> <span id="kicker-scraped">—</span></p>
+        <h1><span class="hero-num" id="hero-total">0</span> başvuru yaptın<br><em><span id="hero-unseen">0</span> başvuru hiç görüntülenmedi.</em></h1>
+        <p class="lede"><strong id="hero-companies">0</strong> şirkete <strong id="hero-apps">0</strong> başvuru. <strong id="hero-viewed">0</strong> başvuru görüntülendi (CV indirilenler dahil) ve <strong id="hero-cv">0</strong> tanesinde CV indirildi.</p>
+      </div>
+      <div class="hero-side">
+        <div class="unseen-box">
+          <div class="lbl">Hiç görüntülenmedi</div>
+          <div class="num" id="unseen-box-num">0</div>
+          <div class="sub" id="unseen-box-sub">/ 0 başvuru</div>
+        </div>
+        <aside class="seal" aria-label="Görüntülenme oranı, CV indirilenler dahil">
+          <div class="lbl">Görüntülenme oranı</div>
+          <div class="num" id="seal-rate">%0</div>
+          <div class="sub" id="seal-sub">CV indirilenler dahil</div>
+        </aside>
+      </div>
+    </div>
+    <div class="hero-meter">
+      <div class="meter-top"><span>Hiç görüntülenmeyen başvurular</span><strong id="meter-label">%0</strong></div>
+      <div class="meter-track" id="meter-track" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Hiç görüntülenmeyen başvuruların oranı"><div class="meter-fill" id="meter-fill"></div></div>
+    </div>
+  </header>
+
+  <section class="panel" aria-labelledby="ozet-title">
+    <div class="panel-head">
+      <h2 id="ozet-title">Özet</h2>
+      <p>Başvuru, görüntülenme ve CV indirme sayıları.</p>
+    </div>
+    <div class="funnel">
+      <article class="step">
+        <div class="k">Toplam başvuru</div>
+        <div class="n" id="fn-total">0</div>
+        <div class="track"><div class="fill" data-bar="total"></div></div>
+        <div class="s">tamamı</div>
+      </article>
+      <article class="step viewed">
+        <div class="k">Görüntülenen başvuru</div>
+        <div class="n" id="fn-viewed">0</div>
+        <div class="track"><div class="fill" data-bar="viewed"></div></div>
+        <div class="s" id="fn-viewed-p">%0</div>
+        <p class="step-note">CV indirilenler dahil</p>
+      </article>
+      <article class="step cv">
+        <div class="k">CV indirilen</div>
+        <div class="n" id="fn-cv">0</div>
+        <div class="track"><div class="fill" data-bar="cv"></div></div>
+        <div class="s" id="fn-cv-p">%0</div>
+        <p class="step-note">Görüntülenenlerin içinden</p>
+      </article>
+    </div>
+    <div class="mix-block">
+      <h3 class="mix-title" id="mix-title">Çalışma şekli</h3>
+      <div class="mix" id="mix"></div>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="okuma-title">
+    <div class="panel-head">
+      <h2 id="okuma-title">Sayılar ne söylüyor?</h2>
+      <p>Sayılar LinkedIn’in kendi sayfasından alındı.</p>
+    </div>
+    <div class="insights">
+      <article class="insight"><h3>Görüntülenmeyenler</h3><p><strong id="n-total">0</strong> başvurundan <strong id="n-unseen">0</strong> tanesi hiç görüntülenmemiş. Bu oran, tüm başvurularının <strong id="p-unseen">%0</strong> kadarı.</p></article>
+      <article class="insight"><h3>Görüntülenenler</h3><p><strong id="n-viewed">0</strong> başvurun görüntülenmiş. Bu sayıya CV’si indirilenler de dahil. Bunların <strong id="n-cv">0</strong> tanesinde CV’n indirilmiş.</p></article>
+      <article class="insight"><h3>Görüntülenmeden yeniden yayın</h3><p><strong id="n-repost-nv">0</strong> başvuru, görüntülenmeden yeniden yayınlanmış.</p></article>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="top-title">
+    <div class="panel-head">
+      <h2 id="top-title">En çok başvurduğun şirketler</h2>
+      <p>Karta tıklayınca o şirket arşivde açılır.</p>
+    </div>
+    <div class="tops" id="tops"></div>
+  </section>
+
+  <section class="panel" id="arsiv" aria-labelledby="arsiv-title">
+    <div class="panel-head arsiv-head">
+      <div class="arsiv-heading">
+        <h2 id="arsiv-title">Arşiv</h2>
+        <p>Şirket adına göre gruplandı.</p>
+      </div>
+      <details class="export-menu">
+        <summary>İndir</summary>
+        <div class="export-menu-panel" role="group" aria-label="Arşivi indir">
+          <button type="button" class="btn-json" id="btn-json">JSON indir</button>
+          <button type="button" class="btn-json" id="btn-html">HTML indir</button>
+          <button type="button" class="btn-json" id="btn-pdf">Özeti PDF olarak indir</button>
+        </div>
+      </details>
+    </div>
+    <div class="tabs" id="main-tabs" role="tablist" aria-label="Arşiv görünümleri">
+      <button class="tab active" id="tab-companies" role="tab" aria-selected="true" aria-controls="view-companies" data-view="companies" type="button" tabindex="0">Şirketler</button>
+      <button class="tab" id="tab-gallery" role="tab" aria-selected="false" aria-controls="view-gallery" data-view="gallery" type="button" tabindex="-1">Logo görünümü</button>
+    </div>
+    <div class="toolbar" id="toolbar">
+      <label class="visually-hidden" for="q">Şirket veya pozisyon ara</label>
+      <input type="search" id="q" placeholder="Şirket veya pozisyon ara…" autocomplete="off" aria-label="Şirket veya pozisyon ara" />
+      <select id="sort" aria-label="Sıralama">
+        <option value="count-desc">Başvuru sayısı</option>
+        <option value="newest">En yeni önce</option>
+        <option value="oldest">En eski önce</option>
+        <option value="name-asc">Şirket A→Z</option>
+        <option value="viewed-first">Önce görüntülenenler</option>
+      </select>
+      <div class="chip-filters">
+        <button type="button" class="chip" data-filter="viewed" aria-pressed="false">Görüntülendi</button>
+        <button type="button" class="chip" data-filter="cv" aria-pressed="false">CV indirildi</button>
+        <button type="button" class="chip" data-filter="repost" aria-pressed="false">Yeniden yayınlanan</button>
+        <button type="button" class="chip" data-filter="repost-nv" aria-pressed="false">Görüntülenmeden yeniden yayınlandı</button>
+      </div>
+      <div class="meta-line" id="result-meta" aria-live="polite">—</div>
+    </div>
+    <div id="view-companies" class="company-list" role="tabpanel" aria-labelledby="tab-companies"></div>
+    <div id="view-gallery" class="gallery panel-hidden" role="tabpanel" aria-labelledby="tab-gallery"></div>
+  </section>
+
+  <footer class="colophon">
+    <div>Tarama tarihi: <span id="ft-scraped">—</span></div>
+    <div><span id="ft-count">0</span> başvuru · filtreler çevrimdışı çalışır</div>
+    <div class="credit-block">
+      <div class="credit-name">Geliştiren: Bora Ata Türkoğlu</div>
+      <div class="credit-links">
+        <a href="https://boraturkoglu.com" target="_blank" rel="noopener noreferrer">boraturkoglu.com</a>
+        <span class="credit-sep">·</span>
+        <a href="https://www.linkedin.com/in/boracomet/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <span class="credit-sep">·</span>
+        <a href="https://github.com/boracomet" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+</div>
+<div id="print-root" class="print-root" hidden></div>
+<script src="status.js"></script>
+<script src="url-allow.js"></script>
+<script src="export-html.js"></script>
+<script src="results.js"></script>
+</body>
+</html>

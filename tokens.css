@@ -1,0 +1,147 @@
+/* Shared design tokens for the popup and the results page.
+   The LinkedIn scan panel mirrors these values in scrape-panel-ui.js
+   (it cannot link this file without a manifest change).
+   Inter Tight (OFL-1.1) is stored in fonts/. Latin-ext covers Turkish. */
+
+@font-face {
+  font-family: "Inter Tight";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/inter-tight-latin-ext-400.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Inter Tight";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/inter-tight-latin-400.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter Tight";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/inter-tight-latin-ext-500.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Inter Tight";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/inter-tight-latin-500.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter Tight";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/inter-tight-latin-ext-600.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Inter Tight";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/inter-tight-latin-600.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter Tight";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/inter-tight-latin-ext-700.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Inter Tight";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/inter-tight-latin-700.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD, U+0131;
+}
+
+:root {
+  color-scheme: light;
+
+  --font-sans: "Inter Tight", Inter, "Segoe UI", sans-serif;
+  --font-serif: "Inter Tight", Inter, "Segoe UI", sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-md: 0.875rem;
+  --text-lg: 1rem;
+  --text-xl: 1.35rem;
+  --text-2xl: 2rem;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-pill: 999px;
+
+  --paper: #f7f9fb;
+  --paper-2: #e8f3ff;
+  --card: #ffffff;
+  --sand: #f3f8fc;
+  --ink: #1d2226;
+  --muted: #3d4c5c;
+  --faint: #52606d;
+  --line: #d6e0e8;
+  --line-strong: #b7c6d4;
+  --fill: #0a66c2;
+  --on-fill: #ffffff;
+  --focus: #0a66c2;
+  --accent: #0a66c2;
+  --accent-pressed: #004182;
+  --accent-disabled: #8eb4d8;
+  --accent-text: #0a66c2;
+  --on-accent: #ffffff;
+  --teal: #0a66c2;
+  --teal-soft: #e8f3ff;
+  --blue: #004182;
+  --blue-soft: #e8f3ff;
+  --gold: #1d4e89;
+  --gold-soft: #e8f3ff;
+  --rust: #9f2b2b;
+  --rose: #9f1239;
+  --rose-soft: #fde8ee;
+  --repost: #8f2429;
+  --repost-soft: #fde4e4;
+  --yes: #4c1d95;
+  --yes-soft: #efe7ff;
+  --closed: #3d4c5c;
+  --closed-soft: #eef3f7;
+  --hero: #004182;
+  --hero-2: #0a66c2;
+  --hero-text: #ffffff;
+  --hero-muted: #d7e7f7;
+  --hero-em: #ffffff;
+  --mix-remote: #0a66c2;
+  --mix-hybrid: #378fe9;
+  --mix-onsite: #004182;
+  --mix-gap: #e8f3ff;
+  --ok: #1f6b3a;
+  --ok-soft: #e7f6ec;
+  --warn: #7a5b00;
+  --warn-soft: #fff6d8;
+  --danger: #9f2b2b;
+  --danger-soft: #fdecec;
+  --shadow: 0 1px 0 rgba(29, 34, 38, 0.04), 0 16px 40px rgba(16, 42, 67, 0.06);
+  --shadow-pop: 0 12px 32px rgba(16, 42, 67, 0.12);
+}

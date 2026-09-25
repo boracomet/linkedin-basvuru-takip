@@ -1,0 +1,35 @@
+Başvuru İstatistikleri — paketlenmemiş Chrome eklentisi
+(Chrome Web Mağazası sürümü değil; yalnızca geliştirici modu.)
+
+Kurulum
+1. Chrome’da chrome://extensions adresini aç.
+2. Sağ üstten “Geliştirici modu”nu aç.
+3. “Paketlenmemiş öğe yükle”ye tıkla.
+4. Bu klasörü seç: …/basvuru-istatistik/extension
+5. Dosyaları değiştirdikten sonra eklentinin yanındaki yenile simgesine bas.
+
+Kullanım
+1. LinkedIn’e kendi hesabınla giriş yap.
+2. Eklenti simgesine tıkla → zaman aralığını seç (son 1 ay / son 3 ay / son 6 ay / son 1 yıl / tümü; varsayılan son 1 yıl).
+3. “Başvuruları topla” düğmesine bas.
+   — Sekme LinkedIn değilse uyarı görürsün.
+   — LinkedIn’deysen ama «Başvuruldu» sayfasında değilsen eklenti
+     https://www.linkedin.com/jobs-tracker/?stage=applied adresine gider ve taramayı başlatır.
+4. Sayfadaki panelde ilerlemeyi izle (“1. sayfa taranıyor” gibi). Başlat’a basmadan önce paneldeki aralığı da değiştirebilirsin.
+5. Bitince sonuçlar eklenti sayfasında açılır (satırlar açılır, sekmeler ve filtreler çalışır).
+6. “Kayıtlı sonuçları aç” ile son taramayı yeniden görebilirsin. Yeni tarama bitince açık sonuç sayfası da güncellenir.
+
+İş arama uyarıları (1.4.2)
+Bir kez tarama yapman yeterli; sonuçlar chrome.storage.local içinde kalır.
+LinkedIn’de bir ilan açtığında (arama sonuçları sağ paneli, /jobs/view/ sayfası,
+koleksiyonlar) o ilanın firmasına daha önce başvurduysan sağ altta sarı bir uyarı çıkar:
+“Daha önce bu firmanın N ilanına başvurdunuz”. Uyarı kendiliğinden kaybolmaz; başka bir
+ilana geçince güncellenir, geçmişi olmayan bir firmaya geçince gizlenir.
+Uyarıya tıklarsan o firmaya yaptığın tüm başvurular (ilan, tarih, durum, bağlantı) açılır.
+“–” düğmesi uyarıyı küçük bir hapa indirir; hapa tıklayınca geri açılır.
+
+Bir sorun olursa
+1. Eklentiyi yeniledikten sonra LinkedIn sekmesini de yenile (Windows ve Linux: Ctrl+R, macOS: Cmd+R).
+2. Uyarı çıkmıyorsa konsola localStorage.btDebug='1' yazıp sayfayı yenile; [BasvuruFloat]
+   satırları firmanın nasıl tanındığını (veya tanınmadığını) gösterir.
+3. Ayarı silmek için: localStorage.removeItem('btDebug')
