@@ -12,45 +12,38 @@ Chrome tabanlı script ve eklenti olarak kullanılabilir.
 
 Paylaşıldığı platform LinkedIn. Gönderi: [Son 1 yılda başvurduğum iş ilanları](https://www.linkedin.com/feed/update/urn:li:activity:7507938457974104065/). **300 bin gösterim**, **1.583 beğeni**.
 
-> **Dipnot.** Bazı firmalar üçüncü parti servislerle CV topladığı için, görüntülenmemiş olması firmanın gerçekten görüntülemediği anlamına gelmez. Maillerinizi kontrol etmenizi tavsiye ederim.
-
 ## Teknik kaos özeti
 
-LinkedIn, “başvurularımı düzgün bir dosya olarak ver” diye bir kapı bırakmadı. Bıraktığı şey, aynı listenin üç ayrı lehçede birden konuştuğu bir sayfa. Eklenti de o üç lehçeden hâlâ okunabileni okur. Başka bir sunucuya sormaz. İşe alımcının ekranına da bakmaz. LinkedIn’in **Başvuruldu** satırına kendi yazdığı cümleyi okur.
+LinkedIn, başvurularının listesini tek tuşla indirtecek bir yer sunmuyor. Ekranda sade bir liste görürsün. O listenin arkası ise dağınıktır. Eklenti, bu dağınıklığın içinden hâlâ okunabilen kısmı okur.
 
-### Üç lehçe
+Okuduğu yer, LinkedIn’in senin **Başvuruldu** satırına yazdığı cümledir. Örneğin “Başvuru görüntülendi” ya da “CV indirildi”. İşe alım uzmanının kendi ekranını görmez. Bilgileri başka bir yere de göndermez.
 
-**Ekran.** Liste kaydırdıkça doğar. Satırların bir kısmı daha iskelettir: gri titreme, boş kutu, “yazı birazdan gelir” vaadi. Sınıf adları da sözünde durmaz. Bugün `jobs-` ile başlayan kutu, yarın başka bir karmaşadır. Sanal listeye CSS seçicisiyle güvenmek, kumdan kale kurmaktır.
+### Sayfa neden dağınık
 
-**Voyager.** Asıl liste çoğu zaman GraphQL ile gelir. Sayfalama bazen `start` ve `count`, bazen `offset`, bazen de gövdenin içine gömülü `variables=(start:…,count:…)` olur. “2. sayfa” diye bir düğme her zaman yoktur. Kaydırma çubuğu vardır, o da yorulur.
+Liste, sayfayı aşağı indirdikçe parça parça gelir. Bazı satırlar önce boş gri kutudur. Yazı sonradan oturur. O boş kutuları saymaya kalkarsan eksik liste çıkarırsın.
 
-**RSC uçuşu.** Flagship cevabı her zaman DOM değildir. React Server Components notasıdır. Satırlar `1a2b:<payload>` diye dizilir, içlerindeki `$L` referansları başka satırlara işaret eder. Metin oradadır. Piksel henüz haberdar değildir.
+Asıl liste çoğu zaman ekrana çizilmeden önce gelir. Tarayıcın, senin adına LinkedIn’e “başvurularımı getir” diye sorar. Cevap düz bir tablo değildir. “2. sayfa” diye bir düğme de her zaman durmaz. Cevabın içinde “10. kayıttan itibaren 20 tane daha” gibi gizli bir sayfa bilgisi vardır.
 
-### Kalan teknik
+Bir kısmı daha da gariptir. Yazılar, ekranda kutu olmadan önce bir notun içinde durur. Sen daha satırı görmemişsindir. Not ise çoktan gelmiştir.
 
-Sayfa yüklenirken, LinkedIn’in kendi kodundan önce, ana dünyada `fetch` ve `XHR` dinlenir. Yakalanan istek yalnızca dört adreste, senin oturumunla yeniden oynatılır:
+### Eklenti ne yapar
 
-- `/voyager/api/graphql`
-- `/voyager/api/voyagerJobsDashJobCards`
-- `/flagship-web/rsc-action/actions/server-request`
-- `/flagship-web/rsc-action/actions/pagination`
+Sen LinkedIn’e zaten giriş yapmışsındır. Eklenti senden şifre istemez. Sayfa açılırken LinkedIn’in kendi sorusunu duyar ve aynı soruyu, senin açık oturumunla, yalnızca başvuru listesini getiren adreslerde bir kez daha sorar.
 
-Çerez ve csrf eklentiye ait değildir. Sayfa `JSESSIONID` içinden ne okuyorsa, yeniden oynatma da onu okur. İzin listesinin dışı tekrar gönderilmez. Rapora düşen örnekte csrf ve çerez karartılır.
+Bu hızlı yol listeyi doldurursa tarama biter. Dolduramazsa eklenti ekrandaki yazıyı okur. Gri kutular yazıya dönene kadar bekler, sonra bir sonraki sayfaya geçer. Bu sırada sekmeyi kapatırsan tarama da durur.
 
-Bu hızlı yol listeyi doldurursa tarama orada biter. Dolduramazsa — istek yakalanamadıysa ya da sayı ekrandaki başvuru çipine göre yarıda kaldıysa — eklenti eski usule döner. İskelet kaybolana kadar bekler, sayfayı sayfa sayfa okur. Sekmeyi kapatırsan hikâye de kapanır.
+Her başvuru tek bir cümleye iner. Sıra şöyledir:
 
-Her satır tek bir duruma iner. Öncelik bozulmaz:
+1. **CV indirildi.** CV’n indirildiyse bu yazılır.
+2. **Görüntülendi.** Başvuruna bakıldıysa bu yazılır.
+3. **Görüntülenmeden yeniden yayınlandı.** İlan, sen başvurduktan sonra yeniden paylaşılmışsa ve hâlâ bakılmamışsa bu yazılır. İkisi de “1 hafta önce” diyorsa sayılmaz. Yeniden yayın, başvurudan daha yeni olmalıdır.
+4. **Başvuru gönderildi fakat görüntülenmedi.** Yukarıdakilerin hiçbiri yoksa bu yazılır.
 
-1. **CV indirildi**
-2. **Görüntülendi**
-3. **Görüntülenmeden yeniden yayınlandı** — ilanın yayın tarihi başvurudan daha yeniyse. İkisi de “1 hafta önce” ise bu sayılmaz.
-4. **Başvuru gönderildi fakat görüntülenmedi.**
+İlan kapanmış olabilir. Bu ayrı bir nottur. Gönderilip bakılmamış bir başvuruda cümle yine “Başvuru gönderildi fakat görüntülenmedi.” kalır.
 
-“Başvurular kapandı” ayrı bir bayraktır. Gönderilip bakılmamış başvurunun cümlesini ezmez.
+Sonuç yalnızca senin bilgisayarında durur. Daha sonra bir ilan açtığında eklenti firma adını bu kayıtla karşılaştırır. “A.Ş.”, “Ltd.” gibi ekler aynı firmayı gizlemesin diye ayıklanır. O firmaya daha önce başvurduysan sağ altta sarı bir uyarı çıkar. Uyarıya basınca ilanlar, tarihler ve durumlar açılır.
 
-Sonuç `chrome.storage.local` içine yazılır. Evden çıkmaz. Sonra bir ilan açtığında firma adı A.Ş., Ltd, GmbH kuyruğundan arındırılıp bu kayıtla karşılaştırılır. Daha önce başvurduysan sağ altta sarı uyarı çıkar. Uyarıya basınca o firmanın ilanları, tarihleri ve durumları açılır.
-
-Kısaca: veri gizlenmedi. Üç lehçeye bölünüp iskeletlerin arkasına kondu. Eklenti o lehçeleri sırayla dener, cümleyi ayıklar, gerisini senin bilgisayarında bırakır.
+Kısaca LinkedIn listeyi tek parça vermiyor. Eklenti önce gizlice gelen cevabı okur. O yetmezse ekrandaki yazıyı sayfa sayfa okur. Sonucu senin bilgisayarında bırakır.
 
 ## Kurulum
 
