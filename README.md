@@ -10,6 +10,8 @@ Bu araç, LinkedIn’de **“Kolay Başvuru”** yöntemiyle yaptığınız iş 
 
 Chrome tabanlı script ve eklenti olarak kullanılabilir.
 
+Paylaşıldığı platform LinkedIn. Gönderi: [Son 1 yılda başvurduğum iş ilanları](https://www.linkedin.com/feed/update/urn:li:activity:7507938457974104065/). **300 bin gösterim**, **1.583 beğeni**.
+
 > **Dipnot.** Bazı firmalar üçüncü parti servislerle CV topladığı için, görüntülenmemiş olması firmanın gerçekten görüntülemediği anlamına gelmez. Maillerinizi kontrol etmenizi tavsiye ederim.
 
 ## Teknik kaos özeti
